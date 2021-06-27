@@ -9,8 +9,6 @@ def shiny(request):
     return render(request, 'home.html')
 
 def shiny_contents(request):
-    print('hello')
-    response = requests.get('http://localhost:8001/')
+    response = requests.get('http://localhost:8100')
     soup = BeautifulSoup(response.content, 'html.parser')
-    
     return JsonResponse({'html_contents': str(soup)})
