@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/bash
 
-(trap 'kill 0' SIGINT; Rscript launch.R & python manage.py runserver 29000)
+Rscript launch.R & python manage.py runserver 29000
 
