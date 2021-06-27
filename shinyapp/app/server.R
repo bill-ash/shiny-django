@@ -2,7 +2,6 @@ function(input, output, session) {
 
 
     data <- shiny::reactive({
-        print('Hello')
         mtcars %>% 
             dplyr::filter(mpg < input$mpg)
     })
