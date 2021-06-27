@@ -7,36 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+
+        $.getJSON('{% url "shiny_contents" %}', function (data) {
+
+          var iframe = document.createElement("iframe");
+          $('#contents').append(iframe);
+
+          iframe.contentWindow.document.open();
+          iframe.contentWindow.document.write(data.html_contents);
+          iframe.contentWindow.document.close();
+
+          // Attempt circumvention
+          if (iframe.contentWindow.WebSocket)
+              WebSocket = iframe.contentWindow.WebSocket;
+        });
+      });
+  </script>
+
   </head>
   <body>
       
-      <h1>We are in the wrapping page!</h1>
-
-<div id="contents" class="container"></div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-<script>
-  $(document).ready(function () {
-
-    $.getJSON('{% url "shiny_contents" %}', function (data) {
-
-      var iframe = document.createElement("iframe");
-      $('#contents').append(iframe);
-
-      iframe.contentWindow.document.open();
-      iframe.contentWindow.document.write(data.html_contents);
-      iframe.contentWindow.document.close();
-
-      // Attempt circumvention
-      if (iframe.contentWindow.WebSocket)
-          WebSocket = iframe.contentWindow.WebSocket;
-    });
-
-  });
-
-</script>
+  <h1>We are in the wrapping page!</h1>
+  <div id="contents" class="container"></div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
